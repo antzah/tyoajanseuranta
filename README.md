@@ -1,1 +1,3 @@
-# tyoajanseuranta
+# Työajanseuranta
+
+A hobby project.
