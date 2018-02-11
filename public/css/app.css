@@ -9999,6 +9999,7 @@ h2,
 h3,
 h4,
 h5,
+.title,
 .card-header,
 .navbar-brand {
   font-family: "Open Sans", sans-serif;
@@ -10085,5 +10086,75 @@ h5,
     margin: 0 12px;
     border: 0.5px solid rgba(255, 255, 255, 0.17);
   }
+}
+
+.month {
+  background: #d43d32;
+  text-align: center;
+  padding: 8px;
+  color: white;
+}
+
+.weekdays,
+.week {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.days .week {
+  border-left: 1px solid rgba(0, 0, 0, 0.03);
+  border-right: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.days .week:first-of-type {
+  border-top: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.days .week:last-of-type {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.day-of-the-week,
+.day {
+  text-align: center;
+  padding: 4px 8px;
+  width: 14.28%;
+}
+
+.day {
+  cursor: default;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.day.saturday {
+  background: rgba(138, 208, 219, 0.74902);
+}
+
+.day.sunday {
+  background: #7cc4d0;
+}
+
+.day:hover {
+  border: 1px solid orange;
+  cursor: pointer;
+}
+
+.day.empty {
+  background: rgba(0, 0, 0, 0.03);
+  cursor: default;
+  border: 1px solid transparent !important;
+}
+
+.day.active {
+  background: orange;
+  border: 1px solid transparent !important;
+  color: white;
 }
 
