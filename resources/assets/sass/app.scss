@@ -103,14 +103,6 @@ h1, h2, h3, h4, h5,
   padding: 8px;
   color: white;
 }
-
-.weekdays,
-.week {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-around;
-}
-
 .days .week {
   border-left: 1px solid rgba(0,0,0,.03);
   border-right: 1px solid rgba(0,0,0,.03);
@@ -128,10 +120,12 @@ h1, h2, h3, h4, h5,
 .day {
   text-align: center;
   padding: 4px 8px;
+  float: left;
   width: 14.28%;
 }
 
 .day {
+  display: inline-block;
   cursor: default;
   border: 1px solid rgba(0,0,0,.03);
 }
