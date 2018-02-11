@@ -1,6 +1,6 @@
 
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:600|Oxygen:300');
 
 // Variables
 @import "variables";
@@ -8,9 +8,14 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+h1, h2, h3, h4, h5,
+.card-header,
+.navbar-brand {
+  font-family: $font-family-titles;
+}
+
 .navbar.navbar-laravel {
   background-color: $navbar-default-bg;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
   color: white;
 }
 
@@ -23,11 +28,13 @@
 }
 
 .card {
-  border: 0;
+  border: 0;    
+  border-radius: 1px;
 }
 
 .card-header {
   background-color: rgb(21, 162, 184);
+  border-radius: 1px !important;
   color: white;
 }
 
@@ -38,11 +45,53 @@
   padding: 0.25rem 0.5rem;
 }
 
+.dropdown-menu {
+  padding: 0;
+  border-radius: 1px;
+  border: 0;
+  box-shadow: $shadow;
+}
+
+.dropdown-item {
+  padding: 0.75rem 1rem;
+}
+
+.form-control {
+  border-radius: 1px;
+}
+
+.btn {
+  border-radius: 1px;
+}
+
 @media (max-width: 767px) {
   .navbar.navbar-laravel .navbar-nav .dropdown-menu {
     background-color: #8ad0db;
     border-radius: 0;
     border: 0;
     padding: 0.25rem 0;
+  }
+}
+
+.navbar.navbar-laravel .navbar-nav .nav-link.active {
+  background: rgba(255,255,255,.2);
+  color: #fff06f;
+}
+
+@media (max-width: 767px) {
+  .navbar.navbar-laravel .navbar-nav .nav-link.active {
+    background: none;
+  }
+
+  .navbar-nav {
+    margin-top: 12px;
+  }
+}
+
+@media (min-width: 768px) {
+  .navbar-desktop-divider {
+    display: block;
+    margin: 0 12px;
+    border: 0.5px solid rgba(255, 255, 255, 0.17)
   }
 }

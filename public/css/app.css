@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);/*!
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:600|Oxygen:300);/*!
  * Bootstrap v4.0.0 (https://getbootstrap.com)
  * Copyright 2011-2018 The Bootstrap Authors
  * Copyright 2011-2018 Twitter, Inc.
@@ -32,7 +32,7 @@
   --breakpoint-md: 768px;
   --breakpoint-lg: 992px;
   --breakpoint-xl: 1200px;
-  --font-family-sans-serif: "Raleway", sans-serif;
+  --font-family-sans-serif: "Oxygen", sans-serif;
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
@@ -72,7 +72,7 @@ section {
 
 body {
   margin: 0;
-  font-family: "Raleway", sans-serif;
+  font-family: "Oxygen", sans-serif;
   font-size: 0.9rem;
   font-weight: 400;
   line-height: 1.6;
@@ -6092,7 +6092,7 @@ button.close {
   z-index: 1070;
   display: block;
   margin: 0;
-  font-family: "Raleway", sans-serif;
+  font-family: "Oxygen", sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.6;
@@ -6217,7 +6217,7 @@ button.close {
   z-index: 1060;
   display: block;
   max-width: 276px;
-  font-family: "Raleway", sans-serif;
+  font-family: "Oxygen", sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.6;
@@ -9994,10 +9994,18 @@ a.text-dark:focus {
   }
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+.card-header,
+.navbar-brand {
+  font-family: "Open Sans", sans-serif;
+}
+
 .navbar.navbar-laravel {
   background-color: #17a2b8;
-  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
   color: white;
 }
 
@@ -10011,10 +10019,12 @@ a.text-dark:focus {
 
 .card {
   border: 0;
+  border-radius: 1px;
 }
 
 .card-header {
   background-color: #15a2b8;
+  border-radius: 1px !important;
   color: white;
 }
 
@@ -10025,12 +10035,55 @@ a.text-dark:focus {
   padding: 0.25rem 0.5rem;
 }
 
+.dropdown-menu {
+  padding: 0;
+  border-radius: 1px;
+  border: 0;
+  -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 2px 2px 7px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 2px 2px 7px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+  padding: 0.75rem 1rem;
+}
+
+.form-control {
+  border-radius: 1px;
+}
+
+.btn {
+  border-radius: 1px;
+}
+
 @media (max-width: 767px) {
   .navbar.navbar-laravel .navbar-nav .dropdown-menu {
     background-color: #8ad0db;
     border-radius: 0;
     border: 0;
     padding: 0.25rem 0;
+  }
+}
+
+.navbar.navbar-laravel .navbar-nav .nav-link.active {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff06f;
+}
+
+@media (max-width: 767px) {
+  .navbar.navbar-laravel .navbar-nav .nav-link.active {
+    background: none;
+  }
+
+  .navbar-nav {
+    margin-top: 12px;
+  }
+}
+
+@media (min-width: 768px) {
+  .navbar-desktop-divider {
+    display: block;
+    margin: 0 12px;
+    border: 0.5px solid rgba(255, 255, 255, 0.17);
   }
 }
 
