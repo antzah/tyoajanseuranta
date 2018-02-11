@@ -1,7 +1,7 @@
 <template>
     <div 
         class="day" 
-        v-bind:class="{ empty: !dayNumber, active: isSelectedDate }"
+        v-bind:class="{ empty: dayNumber == 0, active: isSelectedDate, saturday, sunday }"
     >
         {{ dayNumber == 0 ? "&nbsp;" : dayNumber }}
     </div>
@@ -9,7 +9,7 @@
 
 <script>
     export default {
-        props: ["dayNumber", "weekday", "isSelectedDate"],
+        props: ["dayNumber", "saturday", "sunday", "isSelectedDate"],
         mounted() {
             
         }

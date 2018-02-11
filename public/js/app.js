@@ -47247,7 +47247,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ["dayNumber", "weekday", "isSelectedDate"],
+    props: ["dayNumber", "saturday", "sunday", "isSelectedDate"],
     mounted: function mounted() {}
 });
 
@@ -47263,7 +47263,12 @@ var render = function() {
     "div",
     {
       staticClass: "day",
-      class: { empty: !_vm.dayNumber, active: _vm.isSelectedDate }
+      class: {
+        empty: _vm.dayNumber == 0,
+        active: _vm.isSelectedDate,
+        saturday: _vm.saturday,
+        sunday: _vm.sunday
+      }
     },
     [_vm._v("\n    " + _vm._s(_vm.dayNumber == 0 ? " " : _vm.dayNumber) + "\n")]
   )

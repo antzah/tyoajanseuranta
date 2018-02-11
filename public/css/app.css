@@ -10122,17 +10122,21 @@ h5,
   border: 1px solid rgba(0, 0, 0, 0.03);
 }
 
-.day.saturday {
-  background: rgba(138, 208, 219, 0.74902);
-}
-
-.day.sunday {
-  background: #7cc4d0;
-}
-
 .day:hover {
   border: 1px solid orange;
   cursor: pointer;
+}
+
+/* Saturday */
+
+.day:nth-child(7n) {
+  background: rgba(138, 208, 219, 0.74902);
+}
+
+/* Sunday */
+
+.day:nth-child(7n+1) {
+  background: #7cc4d0;
 }
 
 .day.empty {
