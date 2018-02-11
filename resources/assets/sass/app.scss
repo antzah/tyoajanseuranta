@@ -8,7 +8,41 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-.navbar-laravel {
-  background-color: #fff;
+.navbar.navbar-laravel {
+  background-color: $navbar-default-bg;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  color: white;
+}
+
+.navbar.navbar-laravel .navbar-brand {
+  color: white;
+}
+
+.navbar.navbar-laravel .navbar-nav .nav-link {
+  color: white;
+}
+
+.card {
+  border: 0;
+}
+
+.card-header {
+  background-color: rgb(21, 162, 184);
+  color: white;
+}
+
+.navbar.navbar-laravel .navbar-toggler {
+  border: 0;
+  background: #8ad0db;
+  border-radius: 2px;
+  padding: 0.25rem 0.5rem;
+}
+
+@media (max-width: 767px) {
+  .navbar.navbar-laravel .navbar-nav .dropdown-menu {
+    background-color: #8ad0db;
+    border-radius: 0;
+    border: 0;
+    padding: 0.25rem 0;
+  }
 }
