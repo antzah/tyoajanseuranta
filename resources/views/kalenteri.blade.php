@@ -14,11 +14,7 @@
                         </div>
                     @endif
 
-                    <div class="row">
-                        <div class="col-sm-12 col-lg-4">
-                            <kalenteri-component></kalenteri-component>
-                        </div>
-                    </div>
+                    <kalenteri-component />
                 </div>
             </div>
         </div>

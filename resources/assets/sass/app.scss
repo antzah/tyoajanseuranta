@@ -8,6 +8,8 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+@import 'fontawesome-all.min.css';
+
 h1, h2, h3, h4, h5,
 .title,
 .card-header,
@@ -103,6 +105,11 @@ h1, h2, h3, h4, h5,
   padding: 8px;
   color: white;
 }
+
+.month.title {
+  text-transform: capitalize;
+}
+
 .days .week {
   border-left: 1px solid rgba(0,0,0,.03);
   border-right: 1px solid rgba(0,0,0,.03);
@@ -155,4 +162,30 @@ h1, h2, h3, h4, h5,
   background: orange;
   border: 1px solid transparent !important;
   color: white;
+}
+
+.month.title {
+  position: relative;
+}
+
+.month.title .btn {
+  position: absolute;
+  background: #dc6057;
+  color: white;
+}
+
+.month.title .btn.float-left {
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.month.title .btn.float-right {
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.selectedDayContainer h3 {
+  text-transform: capitalize;
 }

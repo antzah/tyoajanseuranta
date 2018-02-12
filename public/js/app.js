@@ -47068,6 +47068,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -47078,33 +47094,55 @@ function emptyDaysBeforeStart(month, year) {
     return weekday - 1;
 }
 
-var currentDate = moment(),
-    selectedDate = currentDate,
-    daysInSelectedMonth = selectedDate.daysInMonth();
-emptyDaysBeforeStart = emptyDaysBeforeStart(selectedDate.get("month"), selectedDate.get("year"));
-
 /* harmony default export */ __webpack_exports__["default"] = ({
     components: {
         'paiva': __WEBPACK_IMPORTED_MODULE_0__subcomponents_p_iv____default.a
     },
-    semiRandomKey: function semiRandomKey() {
-        return Math.ceil(Math.random() * 99999999); // I know this is dirty. I am sorry.
-    },
-    clicked: function clicked() {
-        console.log("clicked");
-    },
     data: function data() {
         return {
-            currentDate: currentDate,
-            selectedDate: selectedDate,
-            daysInSelectedMonth: selectedDate.daysInMonth(),
-            emptyDaysBeforeStart: emptyDaysBeforeStart,
-            "selectedDay": selectedDate.get("date")
+            "currentDate": moment(),
+            "selectedDate": moment(),
+            "selectedDay": moment().get("date"),
+            "selectedMonth": moment().get("month"),
+            "selectedYear": moment().get("year"),
+            daysInSelectedMonth: moment().daysInMonth(),
+            "emptyDaysBeforeStart": emptyDaysBeforeStart(moment().get("month"), moment().get("year"))
         };
     },
-    mounted: function mounted() {
-        console.log();
-    }
+    methods: {
+        refresh: function refresh() {
+            this.selectedDay = this.selectedDate.get("date");
+            this.selectedMonth = this.selectedDate.get("month");
+            this.selectedYear = this.selectedDate.get("year");
+            this.daysInSelectedMonth = this.selectedDate.daysInMonth();
+            this.emptyDaysBeforeStart = emptyDaysBeforeStart(this.selectedMonth, this.selectedYear);
+        },
+        minusMonth: function minusMonth() {
+            this.selectedDate.set("date", 1);
+            this.selectedDate.subtract(1, "month");
+            this.refresh();
+        },
+        plusMonth: function plusMonth() {
+            this.selectedDate.set("date", 1);
+            this.selectedDate.add(1, "month");
+            this.refresh();
+        },
+        plusDay: function plusDay() {
+            this.selectedDate.add(1, "day");
+            this.refresh();
+        },
+        minusDay: function minusDay() {
+            this.selectedDate.subtract(1, "day");
+            this.refresh();
+        }
+    },
+    created: function created() {
+        this.$on('selectDay', function (day) {
+            this.selectedDate = moment(new Date(this.selectedYear, this.selectedMonth, day));
+            this.refresh();
+        });
+    },
+    mounted: function mounted() {}
 });
 
 /***/ }),
@@ -47115,38 +47153,83 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "calendar" }, [
-    _c("div", { staticClass: "month title" }, [
-      _vm._v("\n        Helmikuu 2018\n    ")
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-lg-4 col-md-6 col-12" }, [
+      _c("div", { staticClass: "calendar" }, [
+        _c("div", { staticClass: "month title" }, [
+          _c(
+            "button",
+            { staticClass: "btn float-left", on: { click: _vm.minusMonth } },
+            [_c("i", { staticClass: "fas fa-caret-left" })]
+          ),
+          _vm._v(
+            " \n                " +
+              _vm._s(_vm.selectedDate.format("MMMM YYYY")) +
+              "\n                "
+          ),
+          _c(
+            "button",
+            { staticClass: "btn  float-right", on: { click: _vm.plusMonth } },
+            [_c("i", { staticClass: "fas fa-caret-right" })]
+          )
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "days" },
+          [
+            _vm._m(0),
+            _vm._v(" "),
+            _vm._l(_vm.emptyDaysBeforeStart, function(n) {
+              return _c("paiva", { key: n, attrs: { "day-number": "0" } })
+            }),
+            _vm._v(" "),
+            _vm._l(_vm.daysInSelectedMonth, function(n) {
+              return _c("paiva", {
+                key: n + 100,
+                attrs: {
+                  "day-number": n,
+                  "is-selected-date": n == _vm.selectedDay
+                }
+              })
+            })
+          ],
+          2
+        )
+      ])
     ]),
     _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "days" },
-      [
-        _vm._m(0),
+    _c("div", { staticClass: "col-lg-8 col-md-6 col-12" }, [
+      _c("div", { staticClass: "selectedDayContainer" }, [
+        _c("h3", [
+          _vm._v(
+            _vm._s(_vm.selectedDate.format("dddd")) +
+              " " +
+              _vm._s(_vm.selectedDate.format("D.M.YYYY"))
+          )
+        ]),
         _vm._v(" "),
-        _vm._l(_vm.emptyDaysBeforeStart, function(n) {
-          return _c("paiva", { key: n, attrs: { "day-number": "0" } })
-        }),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-outline-info btn-sm",
+            attrs: { type: "button" },
+            on: { click: _vm.minusDay }
+          },
+          [_vm._v("Edellinen päivä")]
+        ),
         _vm._v(" "),
-        _vm._l(_vm.daysInSelectedMonth, function(n) {
-          return _c("paiva", {
-            key: n + 100,
-            attrs: {
-              "day-number": n,
-              "is-selected-date": n == _vm.selectedDay
-            },
-            nativeOn: {
-              click: function($event) {
-                _vm.selectedDay = n
-              }
-            }
-          })
-        })
-      ],
-      2
-    )
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-outline-info btn-sm",
+            attrs: { type: "button" },
+            on: { click: _vm.plusDay }
+          },
+          [_vm._v("Seuraava päivä")]
+        )
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -47245,10 +47328,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ["dayNumber", "saturday", "sunday", "isSelectedDate"],
-    mounted: function mounted() {}
+    props: ["dayNumber", "isSelectedDate"],
+    methods: {
+        selectDay: function selectDay(day) {
+            this.$parent.$emit('selectDay', day);
+        }
+    }
 });
 
 /***/ }),
@@ -47263,11 +47351,11 @@ var render = function() {
     "div",
     {
       staticClass: "day",
-      class: {
-        empty: _vm.dayNumber == 0,
-        active: _vm.isSelectedDate,
-        saturday: _vm.saturday,
-        sunday: _vm.sunday
+      class: { empty: _vm.dayNumber == 0, active: _vm.isSelectedDate },
+      on: {
+        click: function($event) {
+          _vm.selectDay(_vm.dayNumber)
+        }
       }
     },
     [_vm._v("\n    " + _vm._s(_vm.dayNumber == 0 ? " " : _vm.dayNumber) + "\n")]
