@@ -12,9 +12,6 @@
     export default {
         props: ["dayNumber", "isSelectedDate"],
         methods: {
-            selectDay(day) {
-                this.$parent.$emit('selectDay', day);
-            }
         }
     }
 </script>

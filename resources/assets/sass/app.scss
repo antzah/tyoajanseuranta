@@ -123,10 +123,9 @@ h1, h2, h3, h4, h5,
   border-bottom: 1px solid rgba(0,0,0,.03);
 }
 
-.day-of-the-week,
-.day {
+.day-of-the-week, .day {
   text-align: center;
-  padding: 4px 8px;
+  padding: 2px;
   float: left;
   width: 14.28%;
 }
@@ -188,4 +187,39 @@ h1, h2, h3, h4, h5,
 
 .selectedDayContainer h3 {
   text-transform: capitalize;
+}
+
+.paintableDay {
+  border: 1px solid rgba(0,0,0,.05);
+}
+
+.hourIndicator {
+  display: inline-block;
+  text-align: center;
+  width: 4.15666%
+}
+
+.quarterHour {
+  display: inline-block;
+  width: 1.0416%;
+  float: left;
+  height: 40px;
+  background: #eee;
+}
+
+.quarterHour.painted {
+  background: rgb(77, 177, 77);
+}
+
+.quarterHour:first-of-type {
+  border-left: 1px solid rgba(0,0,0,.15);
+}
+
+.quarterHour:nth-child(4n+1) {
+  border-right: 1px solid rgba(0,0,0,.15);
+}
+
+.spacer {
+  display: block;
+  margin-top: 24px;
 }

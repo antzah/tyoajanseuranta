@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="col-lg-4 col-md-6 col-12">
+        <div class="col-lg-3 col-md-4 col-12">
             <div class="calendar">
                 <div class="month title">
                     <button @click="minusMonth" class="btn float-left">
@@ -35,11 +35,23 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-8 col-md-6 col-12">
+        <div class="col-lg-9 col-md-8 col-12">
             <div class="selectedDayContainer">
                 <h3>{{ selectedDate.format("dddd") }} {{ selectedDate.format("D.M.YYYY") }}</h3>
                 <button @click="minusDay" type="button" class="btn btn-outline-info btn-sm">Edellinen päivä</button>
                 <button @click="plusDay" type="button" class="btn btn-outline-info btn-sm">Seuraava päivä</button>
+                <div class="spacer"></div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="hourIndicator" :key="n" v-for="n in 24">
+                            {{ (n < 11) ? "0" + (n-1) : n-1 }}
+                        </div>
+                    </div>
+                </div>
+                <vartti 
+                    :key="n" 
+                    v-for="n in 96" 
+                />
             </div>
         </div>
     </div>
@@ -48,6 +60,7 @@
 <script>
 
 import päivä from "./subcomponents/päivä";
+import vartti from "./subcomponents/vartti";
 
 function emptyDaysBeforeStart(month, year) {
     var day = moment(new Date(year, month, 1));
@@ -57,7 +70,8 @@ function emptyDaysBeforeStart(month, year) {
 
 export default {
     components: {
-        'paiva': päivä
+        'paiva': päivä,
+        'vartti': vartti
     },
     data: function() {
         return {
