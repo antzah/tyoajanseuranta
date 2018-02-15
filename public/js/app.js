@@ -63547,7 +63547,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -63572,7 +63571,11 @@ function emptyDaysBeforeStart(month, year) {
             "selectedMonth": moment().get("month"),
             "selectedYear": moment().get("year"),
             daysInSelectedMonth: moment().daysInMonth(),
-            "emptyDaysBeforeStart": emptyDaysBeforeStart(moment().get("month"), moment().get("year"))
+            "emptyDaysBeforeStart": emptyDaysBeforeStart(moment().get("month"), moment().get("year")),
+            "clicks": 0,
+            "firstClickedQuarter": 0,
+            "secondClickedQuarter": 0,
+            "vartit": 0
         };
     },
     methods: {
@@ -63602,13 +63605,29 @@ function emptyDaysBeforeStart(month, year) {
             this.refresh();
         }
     },
-    created: function created() {
+    created: function created() {},
+    mounted: function mounted() {
+        var _this = this;
+
         this.$on('selectDay', function (day) {
-            this.selectedDate = moment(new Date(this.selectedYear, this.selectedMonth, day));
-            this.refresh();
+            _this.selectedDate = moment(new Date(_this.selectedYear, _this.selectedMonth, day));
+            _this.refresh();
         });
-    },
-    mounted: function mounted() {}
+
+        this.$on('quarterClicked', function (quarter) {
+            if (_this.clicks == 0) {
+                _this.firstClickedQuarter = quarter;
+                _this.clicks++;
+            } else if (_this.clicks == 1) {
+                _this.secondClickedQuarter = quarter;
+                _this.$children.filter(function (child) {
+                    if (child.quarter) console.log(child.quarter);
+                });
+                console.log(_this.firstClickedQuarter + " and " + _this.secondClickedQuarter);
+                _this.clicks = 0;
+            }
+        });
+    }
 });
 
 /***/ }),
@@ -63677,7 +63696,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ["dayNumber", "isSelectedDate"],
-    methods: {}
+    methods: {
+        selectDay: function selectDay(day) {
+            this.$parent.$emit('selectDay', day);
+        }
+    }
 });
 
 /***/ }),
@@ -63774,17 +63797,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ["isPainted"],
-    data: function data() {
-        return {
-            "painted": false
-        };
-    },
+    props: ["painted", "isMouseDown", "quarter", "clicks"],
     methods: {
         shouldPaint: function shouldPaint() {
-            this.painted = !this.painted;
+            if (this.isMouseDown) this.painted = !this.painted;
+        },
+        quarterClicked: function quarterClicked(quarter) {
+            this.$parent.$emit('quarterClicked', quarter);
         }
     }
 });
@@ -63800,7 +63822,12 @@ var render = function() {
   return _c("div", {
     staticClass: "quarterHour",
     class: { painted: _vm.painted },
-    on: { mouseover: _vm.shouldPaint }
+    on: {
+      mouseover: _vm.shouldPaint,
+      click: function($event) {
+        _vm.quarterClicked(_vm.quarter)
+      }
+    }
   })
 }
 var staticRenderFns = []
@@ -63919,7 +63946,10 @@ var render = function() {
           ]),
           _vm._v(" "),
           _vm._l(96, function(n) {
-            return _c("vartti", { key: n })
+            return _c("vartti", {
+              key: n,
+              attrs: { clicks: _vm.clicks, painted: false, quarter: n }
+            })
           })
         ],
         2

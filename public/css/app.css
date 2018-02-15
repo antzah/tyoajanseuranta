@@ -10201,10 +10201,19 @@ h5,
   float: left;
   height: 40px;
   background: #eee;
+  cursor: pointer;
+}
+
+.quarterHour:hover {
+  background: #5fc75f;
 }
 
 .quarterHour.painted {
   background: #4db14d;
+}
+
+.quarterHour.painted:hover {
+  background: orange;
 }
 
 .quarterHour:first-of-type {

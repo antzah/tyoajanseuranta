@@ -3,13 +3,9 @@
         <div class="col-lg-3 col-md-4 col-12">
             <div class="calendar">
                 <div class="month title">
-                    <button @click="minusMonth" class="btn float-left">
-                        <i class="fas fa-caret-left"></i>
-                    </button> 
+                    <button @click="minusMonth" class="btn float-left"><i class="fas fa-caret-left"></i></button> 
                     {{ selectedDate.format("MMMM YYYY") }}
-                    <button @click="plusMonth" class="btn  float-right">
-                        <i class="fas fa-caret-right"></i>
-                    </button> 
+                    <button @click="plusMonth" class="btn  float-right"><i class="fas fa-caret-right"></i></button> 
                 </div>
                 <div class="days">
                     <div class="weekdays">
@@ -51,6 +47,9 @@
                 <vartti 
                     :key="n" 
                     v-for="n in 96" 
+                    :clicks="clicks"
+                    :painted="false"
+                    :quarter="n"
                 />
             </div>
         </div>
@@ -81,7 +80,11 @@ export default {
             "selectedMonth": moment().get("month"),
             "selectedYear": moment().get("year"),
             daysInSelectedMonth: moment().daysInMonth(),    
-            "emptyDaysBeforeStart": emptyDaysBeforeStart(moment().get("month"), moment().get("year"))
+            "emptyDaysBeforeStart": emptyDaysBeforeStart(moment().get("month"), moment().get("year")),
+            "clicks": 0,
+            "firstClickedQuarter": 0,
+            "secondClickedQuarter": 0,
+            "vartit": 0
         }
     },
     methods: {
@@ -112,12 +115,27 @@ export default {
         },
     },
     created() {
-        this.$on('selectDay', function(day) {
+    },
+    mounted() {
+        this.$on('selectDay', (day) => {
             this.selectedDate = moment(new Date(this.selectedYear, this.selectedMonth, day));
             this.refresh();
         });
-    },
-    mounted() {
+
+        this.$on('quarterClicked', (quarter) => {
+            if (this.clicks == 0) {
+                this.firstClickedQuarter = quarter;
+                this.clicks++;
+            }
+            else if (this.clicks == 1) {
+                this.secondClickedQuarter = quarter;
+                this.$children.filter( child => {
+                    if (child.quarter) console.log(child.quarter);
+                });
+                console.log(this.firstClickedQuarter + " and " + this.secondClickedQuarter);
+                this.clicks = 0;
+            }
+        });
     }
 }
 

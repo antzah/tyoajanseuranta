@@ -205,10 +205,19 @@ h1, h2, h3, h4, h5,
   float: left;
   height: 40px;
   background: #eee;
+  cursor: pointer;
+}
+
+.quarterHour:hover {
+  background: rgb(95, 199, 95);
 }
 
 .quarterHour.painted {
   background: rgb(77, 177, 77);
+}
+
+.quarterHour.painted:hover {
+  background: orange;
 }
 
 .quarterHour:first-of-type {
