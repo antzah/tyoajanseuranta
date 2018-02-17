@@ -44,13 +44,25 @@
                         </div>
                     </div>
                 </div>
-                <vartti 
-                    :key="n" 
-                    v-for="n in 96" 
-                    :clicks="clicks"
-                    :painted="false"
-                    :quarter="n"
-                />
+                <div class="row">
+                    <div class="col-12">
+                        <vartti 
+                            v-for="quarter in quarters" 
+                            :key="quarter.id"
+                            :clicks="clicks"
+                            :painted="quarter.painted"
+                            :id="quarter.id"
+                            v-tooltip="'basic one'"
+                        />
+                    </div>
+                </div>
+                <div class="small-spacer"></div>
+                <p v-if="clicks == 0">Lisää pätkä klikkaamalla aloitus- ja lopetusaikaa.</p>
+                <p v-if="clicks == 1">Valitse vielä lopetusaika.</p>
+                <button v-if="!deleting" class="btn btn-danger btn-sm" @click="deleting = true">Poista</button>
+                <button v-if="deleting" class="btn btn-secondary btn-sm" @click="deleting = false">Peruuta poistaminen</button>
+                <p v-if="deleting && clicks == 0" style="color: red">Valitse poistettavan pätkän alku.</p>
+                <p v-if="deleting && clicks == 1" style="color: red">Valitse poistettavan pätkän loppu.</p>
             </div>
         </div>
     </div>
@@ -65,6 +77,15 @@ function emptyDaysBeforeStart(month, year) {
     var day = moment(new Date(year, month, 1));
     var weekday = day.isoWeekday();
     return weekday - 1;
+}
+
+var quarters = [];
+
+for (var i = 0; i < 96; i++) {
+    quarters.push({
+        "id": i,
+        "painted": false
+    })
 }
 
 export default {
@@ -84,7 +105,8 @@ export default {
             "clicks": 0,
             "firstClickedQuarter": 0,
             "secondClickedQuarter": 0,
-            "vartit": 0
+            "quarters": quarters,
+            "deleting": false
         }
     },
     methods: {
@@ -112,7 +134,7 @@ export default {
         minusDay: function() {
             this.selectedDate.subtract(1, "day");
             this.refresh();
-        },
+        }
     },
     created() {
     },
@@ -122,17 +144,23 @@ export default {
             this.refresh();
         });
 
-        this.$on('quarterClicked', (quarter) => {
+        this.$on('quarterClicked', id => {
             if (this.clicks == 0) {
-                this.firstClickedQuarter = quarter;
+                this.quarters[id].painted = true;
+                this.firstClickedQuarter = id;
                 this.clicks++;
-            }
-            else if (this.clicks == 1) {
-                this.secondClickedQuarter = quarter;
-                this.$children.filter( child => {
-                    if (child.quarter) console.log(child.quarter);
-                });
-                console.log(this.firstClickedQuarter + " and " + this.secondClickedQuarter);
+            } else if (this.clicks == 1 && this.deleting) {
+
+            } else if (this.clicks == 1) {
+                this.secondClickedQuarter = id;            
+                
+                var smallerId = (this.firstClickedQuarter < this.secondClickedQuarter) ? this.firstClickedQuarter : this.secondClickedQuarter;
+                var biggerId = (this.secondClickedQuarter > this.firstClickedQuarter) ? this.secondClickedQuarter : this.firstClickedQuarter; 
+
+                for (var i = smallerId; i <= biggerId; i++) {
+                    this.quarters[i].painted = true;
+                }
+
                 this.clicks = 0;
             }
         });
