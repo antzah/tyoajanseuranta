@@ -151,6 +151,13 @@ return [
          * Package Service Providers...
          */
 
+        /**
+         * Custom stuff
+        */
+        Jenssegers\Mongodb\MongodbServiceProvider::class,
+        'Jenssegers\Mongodb\Auth\PasswordResetServiceProvider',
+
+
         /*
          * Application Service Providers...
          */

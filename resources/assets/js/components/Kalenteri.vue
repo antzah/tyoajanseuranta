@@ -52,7 +52,7 @@
                             :clicks="clicks"
                             :painted="quarter.painted"
                             :id="quarter.id"
-                            v-tooltip="'basic one'"
+                            v-tooltip="getTime(quarter.id)"
                         />
                     </div>
                 </div>
@@ -134,6 +134,37 @@ export default {
         minusDay: function() {
             this.selectedDate.subtract(1, "day");
             this.refresh();
+        },
+        getTime: (quarterNumber) => {
+            var quarterNumberAsParsedString = String((quarterNumber/4).toFixed(2));
+            var quarterNumberAsParsedStringPlus15 = (String(((quarterNumber + 1)/4).toFixed(2)));
+
+            var parsedQNAPS = quarterNumberAsParsedString.split(".");
+            var parsedQNAPSP15 = quarterNumberAsParsedStringPlus15.split(".");
+
+            parsedQNAPS[1] = parsedQNAPS[1] / 100 * 60;
+            parsedQNAPSP15[1] = parsedQNAPSP15[1] / 100 * 60;
+
+            if (parsedQNAPS[0] <= 9) {
+                parsedQNAPS[0] = "0" + parsedQNAPS[0];
+            }
+
+            if (parsedQNAPS[1] == 0) {
+                parsedQNAPS[1] = "00";
+            }
+
+            if (parsedQNAPSP15[1] == 0) {
+                parsedQNAPSP15[1] = "00";
+            }
+
+            if (parsedQNAPSP15[0] <= 9) {
+                parsedQNAPSP15[0] = "0" + parsedQNAPSP15[0];
+            }
+
+            parsedQNAPS = (String(parsedQNAPS)).replace(",", ":");
+            parsedQNAPSP15 = (String(parsedQNAPSP15)).replace(",", ":");
+
+            return parsedQNAPS + "–" + parsedQNAPSP15;
         }
     },
     created() {

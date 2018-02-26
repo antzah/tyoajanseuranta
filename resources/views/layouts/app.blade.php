@@ -53,6 +53,7 @@
                                     </form>
                                 </div>
                             </li>
+                            <li><span class="nav-link">{{ Auth::user()->_id }}</span></li>
                         @endguest
                     </ul>
                 </div>
